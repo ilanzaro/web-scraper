@@ -78,7 +78,37 @@ export const getParagraphText = async (page: Page, selector: string) => {
   }
   return result;
 };
+/*   
 
+
+
+//get items data and save to jsom
+
+const result = await page.evaluate(() => {
+    const jsonMgEx = JSON.parse(
+    fs.readFileSync("file_to_update.json", "utf-8")
+  );
+    const exPods = Array.from(document.querySelectorAll(".grid-item"));
+    const data: any = {};
+    exPods.map((ex: any) => {
+      const name = ex.querySelector("h2").innerText;
+      data[name.toLowerCase()] = {
+        name,
+        list: Array.from(ex.querySelectorAll("ul li")).map(
+          (i: HTMLElement) => i.innerText
+        ),
+      };
+    });
+    return data;
+  });
+  const updatedJson = JSON.stringify(result, null, 2);
+  fs.writeFileSync("file_to_update.json", updatedJson, "utf-8");
+  console.log(result); 
+  
+  
+  
+  
+  */
 export const scrollDown = async (page: Page) => {
   let prevHeight: any = -1;
   let maxScrolls = 100;
