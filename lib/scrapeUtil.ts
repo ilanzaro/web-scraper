@@ -79,4 +79,24 @@ export const getParagraphText = async (page: Page, selector: string) => {
   return result;
 };
 
+export const scrollDown = async (page: Page) => {
+  let prevHeight: any = -1;
+  let maxScrolls = 100;
+  let scrollCount = 0;
+
+  while (scrollCount < maxScrolls) {
+    // Scroll to the bottom of the page
+    await page.evaluate("window.scrollTo(0, document.body.scrollHeight)");
+    // Wait for page load
+    await page.waitForTimeout(1000);
+    // Calculate new scroll height and compare
+    let newHeight: any = await page.evaluate("document.body.scrollHeight");
+    if (newHeight == prevHeight) {
+      break;
+    }
+    prevHeight = newHeight;
+    scrollCount += 1;
+  }
+};
+
 export const writeToJSON = async () => {};
